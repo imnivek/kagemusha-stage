@@ -1,0 +1,138 @@
+影武者 Kagemusha｜Unity 表演互動遊戲交接
+交接日期：2026-10-21（Asia/Taipei）
+交接基準：0.4.2；最後一輪功能測試：2026-10-21
+
+一、接手後先做這三件事
+1. 使用 macOS 14 以上的 Mac，完整解壓本包，雙擊「開啟效果示範.command」確認 3D 舞台與特效。此為合成動作，不能用來證明真人辨識成功。
+2. 在程式內按 V 啟動真人鏡頭，允許系統相機權限；按 C 重定位。確認青色骨架會跟隨自己的雙臂，近遠移動時舞台位置有相應變化。
+3. 按 T 進入教學，選課後按「開始練習」或 Enter。優先重新驗收水遁與收劍，再完成六招、上半身／全身測試。測試表在「真人驗收表.csv」。
+
+本包可供另一位工程師或 AI 開發夥伴繼續修改，並以 GitHub Release 提供下載；遊戲仍以本機 Mac app 執行。若只試玩，不需安裝 Unity。若程式已開啟，重新雙擊模式啟動器不一定會切換模式，請使用程式內的 T／D／V。
+
+二、產品目標與已確認方向
+這是一款舞台表演用的體感遊戲：舞者在鏡頭前跳舞，角色骨架即時跟隨，以指定姿勢與連續動作施術。自由演出時直接以姿勢換招，不要求按選招按鈕。數字鍵只供特效預覽。
+目前先以完整 3D 骨架、3D 場景與程序特效驗證效果；後續才做正式 3D 角色、rig、蒙皮與角色外殼。下一位接手者應先穩定真人觸發與動作映射，再投入精細角色成像。
+忍術效果依業主指定，以《火影忍者》的動作輪廓、集氣節奏與色彩為參照；目前龍、刀、能量球、火焰與分身皆為程序建立的原型。火遁與螺旋丸分開保留，共六招。
+硬體與場地仍未定案，第一輪以單人、固定鏡頭、獨立螢幕為基準。
+
+三、本包內容
+Kagemusha/                 可由 Unity Hub 加入的專案根目錄
+  Assets/                 場景、C#、shader、URP 設定、字型、Mac 原生 bundle
+  Packages/               manifest 與版本鎖定檔
+  ProjectSettings/        Unity 專案設定
+  Tools/                  原生辨識 Objective-C++ 原始碼、建置腳本、照片測試腳本
+  Builds/Kagemusha Stage.app  已建置的 0.4.2 Mac 試玩程式
+  README.md               詳細操作及產品說明
+驗證紀錄/                  已留存的自動驗證結果、交接檢查報告
+真人驗收表.csv             尚待實測的案例，初始均標為「待測」
+接手任務_可直接貼給開發夥伴.txt  接續開發的精簡任務
+檢查交接包.py / CHECKSUMS.sha256  檔案完整性檢查
+
+未包含 Library、Temp、Logs、UserSettings、Burst 偵錯輸出、歷史備份、原始 Evidence、相機照片、真人追蹤資料、其他專案、工作記憶、聊天紀錄與憑證。首次在 Unity 開啟時會重新匯入 Assets，並可能下載 Packages。
+
+四、開發環境與開啟方式
+Unity：6000.3.26f1（Unity 6），URP：17.3.0。
+真人追蹤：macOS 14+，Apple Vision 原生辨識。原生 bundle 與 app 執行檔均含 arm64 / x86_64；這只證明包含架構，並不代表所有 Intel / Apple Silicon 機型已實測。
+1. 透過 Unity Hub 安裝上述版本及 Mac 建置模組。
+2. Add／加入本包內 Kagemusha 資料夾，等待套件與資產匯入。
+3. 開啟 Assets/Kagemusha/Scenes/Kagemusha.unity，按 Play。既有場景已設定完成，不需先執行「建立骨架互動舞台」。
+4. 先用 D 看合成示範，再用 V 測相機。Editor 與獨立 app 的相機權限需各自確認；在系統設定「隱私權與安全性 → 相機」允許實際執行的程式後重試。
+5. 僅使用自己的 Unity 帳號與有效授權。專案不依賴原製作者電腦上的 CLI、外部 AI 服務或 API 金鑰；com.unity.pipeline 是可選的編輯器工具套件，正常 GUI 操作不需 CLI。
+
+macOS 原生 bundle 已附在 Assets/Plugins/macOS/KagemushaPose.bundle。需重編時，在 Kagemusha 根目錄執行：
+  bash Tools/build-native.sh
+需有可用的 Xcode / Command Line Tools 與相應 macOS SDK；腳本以 C++17 建置 arm64+x86_64，部署目標 14.0。
+
+五、目前六招及操作
+左右手皆指舞者本人的左右；舞台預設鏡像。
+1. 螺旋丸：右掌托在右側胸腹前，左手繞右掌畫圈；成形後右手舉過肩，再快速向前下方拋出。不可用靜止雙手假裝集氣完成。
+2. 水遁・水龍彈：雙手在胸前中央靠近，停約一秒集氣，再像推開兩扇門，向兩側分開超過肩寬。畫面為向前飛行的水龍。
+3. 劍術：左手扶左腰，右手同處握柄約 0.3 秒，再向右上斜拔；持劍時揮右臂斬擊。收劍重做左腰雙手握柄姿勢，保持約 0.55 秒。收完先放開雙手，才可重新握柄拔劍。
+4. 影分身：忍者跑輪廓，上身前傾、雙臂向身後斜伸，略向外展並保持雙手可見，停約 0.6 秒。無須真的跑；左右兩個骨架分身跟隨約五秒。
+5. 龍脈召喚：雙掌在頭頂靠近約 0.6 秒，再張開雙臂。大型綠金長身龍盤繞舞者約八秒；與水遁的水龍投射物是不同招式。
+6. 火遁：雙手在嘴前靠近約 0.6 秒，保持手位，由嘴前噴火；轉頭及調整手位引導方向。單次最長約三秒，鬆手或失去必要關節停止。
+
+V 相機；D 合成示範；C 重定位；T 教學；Space 清理特效／重設施術；O 環繞視角；Tab 控制板。
+1~6 預覽依序為螺旋丸、水遁、刀光、分身、召龍、火遁。教學停用預覽鍵，必須完成真人事件才過關。
+教學：Enter 開始；左右鍵選課；R 重練；Esc 返回演出。火遁課需噴出後轉向至少約 12°。成績僅保留本次執行。
+尚未建立獨立的多招連擊判定系統；可在冷卻與姿勢重置後連續換招。
+
+六、最新修正與真實驗證狀態
+2026-10-18 曾收到真人回報：水遁叫不出來，收劍難以完成。
+水遁原因已用連續姿態測試重現：由結印慢慢推掌時，途中被螺旋丸起手搶走判定。0.4.1 將已集氣水遁置於新招式判定之前，允許約 2.2 秒推掌銜接，並放寬釋放寬度。
+收劍由舊的左肩對鞘流程，改為直接回左腰握柄保持約 0.55 秒；以 latch 避免保持原姿勢又自動拔劍。教學與合成示範已同步。
+已留存的四組自動測試均通過：六招、六課教學、上半身／全身與遠近追蹤映射、慢速水遁與左腰收劍。另有靜態照片的原生辨識通過摘要。
+這些測試以合成關節或靜態照片驗證程式流程；不能代替最新版本真人完整驗收。最後一次 0.4.1 啟動檢查時，Mac 鎖定且程式回報相機未授權，因此兩項最新修正尚未取得真人通過紀錄。
+0.4.2 分享版替換了中文字型並重建 app、同步最低系統為 14.0。交接日重新執行四組自動測試與中文字形檢查均通過；沒有重新執行真人捕捉。另完成版本、原檔一致性、封包完整性、Mac 簽章與啟動腳本檢查。
+
+七、程式架構與改動入口
+WebCamTexture → KP_Submit → Apple Vision → KP_Copy → PoseSource.AcceptObservation / MapPose
+  → GestureJoints（施術用影像平面輪廓）→ GestureController → Fired 事件 → 舞台特效 / 教學
+  → Joints（骨長修正與 IK 後的 3D 位置）→ SkeletonView / 角色呈現
+
+Assets/Kagemusha/Runtime/PoseSource.cs
+  相機授權、攝影機選擇、影像旋轉／鏡像、原生橋接、主角可靠度、全身／上半身、相對大小、骨長、二節肢體 IK。JointThreshold=0.25；真人施術需要可靠且新鮮的資料（約 0.25 秒內）。請保留辨識用與渲染用兩組座標的分工。
+Assets/Kagemusha/Runtime/GestureController.cs
+  六招狀態機、保持時間、取消、冷卻、鎖定與方向。優先查看 TickWater、TickSword、TickRasengan、NinjaRunHint、FireAim。Fired 事件還含 select、formed、throw-ready、equip 等流程事件。
+Assets/Kagemusha/Runtime/KagemushaStage.cs
+  Unity 舞台、輸入鍵、敵人、命中、投射物、骨架顯示、狀態快照與畫面 UI。
+Assets/Kagemusha/Runtime/NinjaJutsuArt.cs
+  程序生成武士刀、螺旋丸、火柱、水龍與大型召喚龍，以及材質與動畫。
+Assets/Kagemusha/Runtime/SkeletonView.cs
+  17 關節球體與骨管的 3D 顯示。它不是可直接套皮的標準 Humanoid Animator；正式角色需要新增 retarget 層與關節旋轉求解。
+Assets/Kagemusha/Runtime/TutorialSession.cs / KagemushaTutorial.cs
+  六課流程與事件驗收、教學 UI、獨立金色 3D 示範骨架。
+Assets/Kagemusha/Shaders/
+  Glow / Spark / NinjaToon / NinjaFlame；NinjaFlame 是程序流動火焰，NinjaToon 為分色明暗與輪廓高光。
+Assets/Kagemusha/Editor/Project.cs
+  場景建立、Mac 建置及自適應驗證；其餘 Verify*.cs 為手勢／教學回歸測試。
+Tools/Native/KagemushaPose.mm
+  Apple Vision 2D 人體、背景非同步 3D 深度補充、選定主角與臉部方向估計。沒有身分辨識或網路傳輸。
+
+八、骨架與原生資料契約
+17 點索引：0 root；1 spine；2 neck；3 head/nose；4 headTop；5 左肩；6 左肘；7 左手腕；8 右肩；9 右肘；10 右手腕；11 左髖；12 左膝；13 左踝；14 右髖；15 右膝；16 右踝。
+每點七個 float：相對 root 的 xyz、2D 信心、影像 u、影像 v、valid。影像原點在左下。
+128-float buffer：0~118 關節資料；119 人數；120 推論毫秒；121 sequence（另有 KP_Copy 的 ulong 回傳）；122 主角選定狀態（1 選定，0 無，-1 不明確）；123 保留；124 yaw；125 pitch；126 臉部信心；127 方向有效。
+跨平台替換辨識器時，應維持關節順序、有效度、新鮮度、左右定義與 GestureJoints / Joints 分工；不要把補出的手肘當作真正觀測到的關節信心。
+目前只輸出關節位置，沒有可靠的手指、手掌朝向與完整骨骼旋轉。部分中央骨架點由 2D 點內插／估算。
+
+九、鏡頭、距離與互動邊界
+建議排練起點為鏡頭距離約 3.5~4 公尺、高度約 1.2~1.4 公尺，表演區約寬 3 × 深 2 公尺；實際需依鏡頭視角調整。伸臂、抬手時保留至少約 10% 邊界。
+程式不測量公尺。以肩寬相對首次入鏡／C 定位的比例估計前後，RelativeSize 約限制在 0.65~1.45，映射透視位置；轉身與遮擋會影響估計。骨長維持固定，不靠拉長手腳表現遠近。
+近距離只拍上半身也可施術；灰色腿部是參考站姿，不是偵測到的腿。
+主角依中央前景、肩位與大小配對；多人不明或位置跳變即暫停施術。它不是多玩家系統，亦不是身分追蹤。
+未辨識手指結印；雙手藏背後、手遮臉、交叉、快速旋轉、背身與多人交錯都需實測。鏡頭避免拍到投影中的人體角色。
+畫面推論毫秒數不是鏡頭到螢幕的總延遲。未有舞台級效能、不同攝影機與不同 Mac 的正式量測。
+
+十、測試與重新建置
+在 Unity 的 Kagemusha 選單依序執行：
+  1. 驗證慢速水遁與左腰收劍（先建立 Evidence 輸出資料夾）
+  2. 驗證六招經典姿勢
+  3. 驗證六招教學
+  4. 驗證自適應真人追蹤
+遇例外查看 Console；通過結果會寫到本機 Evidence。測試會建立暫時物件，請在停止 Play 的狀態執行。
+原生照片測試需 Python 3 + Pillow，使用自己同意提供、全身清楚可見的測試照片：
+  python3 Tools/test-native.py /path/to/your-full-body-photo.jpg
+照片未附入交接包，結果不能與真人延遲混為一談。
+
+匯出 Mac app：停止 Play → Kagemusha → 匯出 Mac 展示程式。
+BuildMac 會確認 NinjaToon / NinjaFlame shader 在建置場景上有序列化引用，儲存場景並建置到 Builds/Kagemusha Stage.app，設定相機用途說明後做本機 ad-hoc 簽章。
+不要直接移除場景上的 shader 欄位：曾發生 Editor 有效果、Player 卻因 shader 被裁掉而顯示錯誤材質。
+「建立骨架互動舞台」會重建場景；若已調整場景，先備份再使用。
+
+十一、已知限制與下一步優先順序
+P1 真人驗收：先在可用相機權限的 Mac 完成水遁、拔劍→斬擊→收劍、全部六課，分別測上半身與全身；把成功率、誤觸發與失敗時的提示寫入驗收表。
+系統最低版本：0.4.2 已將 app 與 PlayerSettings 的最低系統欄位同步為 macOS 14.0；交接啟動器亦檢查 14+。原生辨識需要 macOS 14+。
+P2 舞台穩定度：量測實際攝影機、場地光線、鏡頭到畫面的總延遲、幀率、遮擋與主角重新選取。先穩定辨識再加細節特效。
+P2 正式 3D 角色：新增骨架 retarget、骨骼旋轉、腳掌接地、手腳 IK 與蒙皮外殼；保留現有施術判斷契約。現在的骨架球管與程序龍不是正式角色模型。
+P3 分享與部署：目前可分享 Mac app。尚無 Developer ID 公證、Windows 真人追蹤或 WebGL 真人追蹤；線上版需換成可在目標平台運作的姿態來源並重測性能。沒有網路多人、音樂節拍同步或獨立連擊系統。
+
+十二、資料與完整性
+相機影像在本機處理，遊戲程式未實作錄影或上傳。本機狀態檔位置為：
+  ~/Library/Application Support/AZ Interactive/Kagemusha Stage/tracking-status.json
+內容包括模式、關節位置／信心、計數與錯誤提示；本包未附任何既有真人狀態檔。不要把原始 Player.log / Editor.log 直接轉交或公開，啟動參數可能含帳號憑證。
+本包只留下必要來源與經篩選的通過紀錄；Mac 試玩版保留原簽章，未替換識別碼或更改系統權限。
+在解壓後的交接包根目錄執行「python3 檢查交接包.py」可核對 CHECKSUMS.sha256。若已用 Unity 開啟並改檔，雜湊改變屬正常，應保留原壓縮包作為基準。
+
+十三、分享版 0.4.2
+中文字型改為 Noto Sans TC（SIL OFL 1.1），完整來源與授權在 Kagemusha/THIRD_PARTY_NOTICES.md 和 Kagemusha/Assets/Kagemusha/Fonts/NotoSansTC-OFL.txt。Mac app 的 Contents/Resources/ThirdPartyNotices 也附同份文件。原字型沒有包含在此版來源或新建置 app。

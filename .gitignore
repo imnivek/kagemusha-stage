@@ -1,0 +1,17 @@
+**/Library/
+**/Temp/
+**/Obj/
+**/Logs/
+**/UserSettings/
+**/Builds/
+**/Evidence/
+**/Evidence.meta
+**/*BurstDebugInformation*/
+**/.DS_Store
+**/._*
+**/.project-memory/
+**/.private/
+**/AGENTS.md
+**/.env
+**/.env.*
+**/tools/telegram-work-bridge/

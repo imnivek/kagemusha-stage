@@ -1,0 +1,11 @@
+{
+  "method": "local static-photo inference; input photo and per-person orientation excluded",
+  "date": "2026-10-18",
+  "runs": 3,
+  "all17Joints": true,
+  "allSingleSubject": true,
+  "headAimAvailable": true,
+  "blankRejected": true,
+  "reset": true,
+  "notAnEndToEndLatencyMeasurement": true
+}

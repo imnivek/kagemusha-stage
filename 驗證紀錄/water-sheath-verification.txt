@@ -1,0 +1,2 @@
+PASS: continuous 0.6/1.2/1.8-second water pushes, one release, no Rasengan takeover, missing-hand cancellation.
+PASS: draw/slash, direct left-waist hold to sheath, minimum hold, no immediate redraw, fresh grip rearm.

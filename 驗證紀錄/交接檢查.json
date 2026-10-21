@@ -1,0 +1,18 @@
+{
+  "handoffDate": "2026-10-21",
+  "version": "0.4.2",
+  "sourceAndAppFilesCompared": 278,
+  "exactSourceAndAppCopy": true,
+  "appSignatureValid": true,
+  "launchScriptsSyntaxAndExecutable": true,
+  "originalEvidenceExcluded": true,
+  "privateMemoryAndLogsExcluded": true,
+  "liveCameraRetestedDuringHandoff": false,
+  "latestWaterSheathLiveAcceptance": "pending",
+  "minimumOSRequirement": {
+    "actualCaptureRequirement": "macOS 14+",
+    "currentAppPlist": "14.0",
+    "handoffLaunchersRequireMajorVersionAtLeast": 14
+  },
+  "font": "unmodified Noto Sans TC; SIL OFL 1.1 bundled"
+}

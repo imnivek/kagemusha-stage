@@ -1,0 +1,32 @@
+[
+  {
+    "name": "water-sheath-verification.txt",
+    "verifiedAt": "2026-10-21T22:28:18.998879+08:00",
+    "method": "synthetic joint / observation tests in Unity Editor",
+    "result": "PASS"
+  },
+  {
+    "name": "gesture-verification.txt",
+    "verifiedAt": "2026-10-21T22:28:19.021022+08:00",
+    "method": "synthetic joint / observation tests in Unity Editor",
+    "result": "PASS"
+  },
+  {
+    "name": "tutorial-verification.txt",
+    "verifiedAt": "2026-10-21T22:28:19.036240+08:00",
+    "method": "synthetic joint / observation tests in Unity Editor",
+    "result": "PASS"
+  },
+  {
+    "name": "adaptive-tracking-verification.txt",
+    "verifiedAt": "2026-10-21T22:28:19.040647+08:00",
+    "method": "synthetic joint / observation tests in Unity Editor",
+    "result": "PASS"
+  },
+  {
+    "name": "share-font-verification.txt",
+    "verifiedAt": "2026-10-21T22:36:03.202945+08:00",
+    "method": "font character coverage and importer verification in Unity Editor",
+    "result": "PASS"
+  }
+]

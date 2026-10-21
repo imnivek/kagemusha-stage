@@ -1,0 +1,1 @@
+PASS: upper body without feet/calibration, 3D mapping, near/far image scale, automatic full-body switch, standing foot placement, locked performer with background, ambiguous/blank rejection, visible-wrist IK, missing-hand charge cancel.
